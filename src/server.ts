@@ -1,7 +1,5 @@
 import { Server } from 'http';
-import mongoose from 'mongoose';
 import app from './app';
-import config from './app/config';
 
 let server: Server;
 
@@ -10,12 +8,10 @@ let server: Server;
  */
 async function main() {
   try {
-    // Connect to the MongoDB database using the provided URL from the configuration.
-    await mongoose.connect(config.DATABASE_URL as string);
-
+    const PORT = process.env.PORT || 8000;
     // Start the server and listen on the specified port from the configuration.
-    server = app.listen(config.PORT, () => {
-      console.log(`App is listening on port ${config.PORT}`);
+    server = app.listen(PORT, () => {
+      console.log(`App is listening on port ${PORT}`);
     });
   } catch (err) {
     // Log any errors that occur during database connection or server startup.
