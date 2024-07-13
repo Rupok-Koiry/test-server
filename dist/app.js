@@ -6,9 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const cors_1 = __importDefault(require("cors"));
 const express_1 = __importDefault(require("express"));
-const globalErrorhandler_1 = __importDefault(require("./app/middlewares/globalErrorhandler"));
-const notFound_1 = __importDefault(require("./app/middlewares/notFound"));
-const routes_1 = __importDefault(require("./app/routes"));
 const app = (0, express_1.default)();
 // Middleware for parsing JSON bodies
 app.use(express_1.default.json());
@@ -16,10 +13,7 @@ app.use(express_1.default.json());
 app.use((0, cookie_parser_1.default)());
 // Middleware for enabling Cross-Origin Resource Sharing (CORS) for specified origins
 app.use((0, cors_1.default)());
-// Route handlers for API endpoints prefixed with /api/v1
-app.use('/api', routes_1.default);
-// Middleware for handling global errors
-app.use(globalErrorhandler_1.default);
-// Middleware for handling 404 - Not Found errors
-app.use(notFound_1.default);
+app.get('/', (req, res) => {
+    res.send('Hello World!');
+});
 exports.default = app;
